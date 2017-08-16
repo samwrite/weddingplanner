@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<a href="/dashboard">Dashboard</a>
+<a href="/logout">Logout</a>
+
+<h1> @ViewBag.Wedding.Wedder1 & @ViewBag.Wedding.Wedder2 's Wedding</h1>
+<h2>Date: @ViewBag.Wedding.Date.ToString("MMMM dd, yyyy") </h2>
+<h3>Guests: </h3>
+@{
+    foreach (var g in @ViewBag.Wedding.Guests)
+    {
+        <p> @g.User.First @g.User.Last</p>
+    }
+}
+
+<a href="/plan"><button>Create Wedding</button></a>

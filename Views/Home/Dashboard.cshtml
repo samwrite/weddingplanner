@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Welcome to the Wedding Planner!</h1>
+<a href="/logout">Logout</a>
+<table>
+  <tr>
+    <th>Wedding</th>
+    <th>Date</th>
+    <th>Guest</th>
+    <th>Action</th> 
+  </tr> 
+
+@{
+  foreach(var wed in ViewBag.Weddings)
+  {
+    bool created = false;
+      <tr>
+          <td><a href="/wedding/@wed.WeddingId">@wed.Wedder1 & @wed.Wedder2</td>
+          <td>@wed.Date.ToString("MMMM dd, yyyy")</td>
+          <td>@wed.Guests.Count</td>
+          <td>
+          @if(wed.Creator == ViewBag.CurrId)
+          {
+              <a href="delete/@wed.WeddingId">delete</a>
+          }
+          else
+          {
+            @foreach(var guest in wed.Guests)
+            {
+                if(guest.UserId == ViewBag.CurrId)
+                {
+                    created = true;
+                }
+            }
+            @if(created)
+            {
+                <a href="unrsvp/@wed.WeddingId">Un-RSVP</a>
+            }     
+            else
+            {
+                <a href="rsvp/@wed.WeddingId">RSVP</a>
+            }
+          }
+          </td>
+      </tr>
+  }
+}
+</table>
+<a href="/plan"><button>Create Wedding</button></a>
